@@ -4,19 +4,20 @@ import 'package:flutter/material.dart';
 buildStoryPage(bool active, int index, Size size) {
   // Animated Properties
   final double fade = active ? 0 : 0.8;
-  final double offset = active ? 0 : 20;
+  final double offset = active ? 0 : 10;
 
   return Stack(
     children: [
       AnimatedContainer(
         duration: const Duration(milliseconds: 700),
         curve: Curves.fastOutSlowIn,
-        margin: EdgeInsets.symmetric(vertical: offset, horizontal: offset),
+        margin: EdgeInsets.symmetric(vertical: offset, horizontal: offset / 2),
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          image: DecorationImage(
+          image: const DecorationImage(
               image: AssetImage(
-                "assets/location_" + index.toString() + ".png",
+                "assets/location_0.png",
               ),
               fit: BoxFit.fitHeight),
         ),

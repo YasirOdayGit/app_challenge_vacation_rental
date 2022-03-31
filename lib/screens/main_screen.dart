@@ -1,8 +1,8 @@
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import '../widgets/build_cities.dart';
+import '../widgets/custom_navbar.dart';
+import '../widgets/recent_view_widget.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -12,13 +12,14 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  Faker faker = Faker();
   String name = Faker().person.firstName();
   late PageController _pageController;
+  List<String> images = List.generate(
+      50, (index) => faker.image.image(random: true, keywords: ['nature']));
   int currentPage = 1;
   @override
   void initState() {
-    _pageController = PageController(viewportFraction: 0.75, initialPage: 1)
+    _pageController = PageController(viewportFraction: 0.8, initialPage: 1)
       ..addListener(() {
         int pos = _pageController.page!.round();
         if (currentPage != pos) {
@@ -66,9 +67,11 @@ class _MainScreenState extends State<MainScreen> {
               ))
         ]),
       ),
+      bottomNavigationBar: const CustomBottomNavBar(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Center(
               child: SizedBox(
@@ -126,32 +129,39 @@ class _MainScreenState extends State<MainScreen> {
                   return buildStoryPage(active, __, size);
                 },
               ),
-            )
+            ),
+            const SizedBox(
+              height: 35,
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              width: size.width * 0.9,
+              child: const Text(
+                "Recently viewed",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+            SizedBox(
+              height: size.width / 2 + 50,
+              width: size.width,
+              child: ListView.builder(
+                itemCount: 13,
+                scrollDirection: Axis.horizontal,
+                // for real images we use cached network image and remove the
+                // cache extent
+                cacheExtent: double.infinity,
+                padding: EdgeInsets.only(
+                    left: size.width * 0.05 - 10, top: 10, bottom: 10),
+                itemBuilder: (_, __) {
+                  return RecentlyViewedWidget(size: size, image: images[__]);
+                },
+              ),
+            ),
           ],
         ),
-      ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(25), topRight: Radius.circular(25)),
-        child: BottomNavigationBar(
-            backgroundColor: const Color(0xff36635A),
-            items: [
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/Home.svg"), label: "Home"),
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/Envelope.svg"),
-                  label: "Inbox"),
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/Bag.svg"), label: "Trips"),
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/Video.svg"),
-                  label: "Bucket list"),
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/Globe.svg"), label: "Explore"),
-            ],
-            selectedItemColor: const Color(0xff759892),
-            unselectedItemColor: const Color(0xff759892),
-            type: BottomNavigationBarType.fixed),
       ),
     );
   }
