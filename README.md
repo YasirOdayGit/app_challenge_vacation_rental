@@ -1,16 +1,15 @@
-# app_challenge_vacation_rental
+# App Challenge 2
 
-A new Flutter project.
+App challenge 2, Vacation booking app.
 
-## Getting Started
+## Preview
 
-This project is a starting point for a Flutter application.
+https://user-images.githubusercontent.com/95036084/160954070-8b874dbd-8e84-471c-ab56-485f2453766c.mp4
 
-A few resources to get you started if this is your first Flutter project:
+# credits
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Flutter project by Yasir Kadhim for questions/inquiries email me at yasiroday@protonmail.com
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Figma design by : Ferenc Nagy
+
+Link : https://www.figma.com/community/file/1086480509916545277
